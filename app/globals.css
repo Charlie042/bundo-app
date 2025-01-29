@@ -1,21 +1,28 @@
+@import url('https://fonts.cdnfonts.com/css/tv-2-sans-condensed');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0A2211;
+  --primary: #34A853;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ededed;
+    --foreground: #11270B;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'TV 2 Sans Condensed', sans-serif;
+}
+
+.flex-center{
+  @apply flex gap-2 py-7 cursor-pointer px-5 hover:text-[#808080]
 }
