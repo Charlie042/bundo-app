@@ -1,49 +1,68 @@
-import Image from "next/image"
-import { FooterImg,BundoLogo } from "@/public/images"
-import { footerData,socialLinks } from "./_components/data";
+import Image from "next/image";
+import { FooterImg, BundoLogo } from "@/public/images";
+import { footerData, socialLinks } from "./_components/data";
+import Link from "next/link";
+
 export const Footer = () => {
-    return (
-      <footer>
-        <div className="mb-10 flex flex-col gap-5">
-          <Image src={BundoLogo} alt="Bundo Logo" height={24} />
-          <span className="font-extralight">Simplifying Retail.</span>
+  return (
+    <footer className="footer-container">
+      <div className="footer-logo">
+        <Image src={BundoLogo} alt="Bundo Logo" height={24} className="w-20" />
+        <span className="footer-tagline">Simplifying Retail.</span>
+      </div>
+
+      <div className="footer-content">
+        <div className="footer-image">
+          <Image
+            src={FooterImg}
+            alt="Bundo App"
+            height={500}
+            className="footer-img-style"
+          />
         </div>
-        <div className="flex gap-20">
-          <div className="">
-            <Image src={FooterImg} alt="mobile bundo app" height={700} />
+
+        <div className="footer-links">
+          <div className="footer-grid">
+            {footerData.map((section) => (
+              <div key={section.title}>
+                <h4 className="footer-section-title">{section.title}</h4>
+                <ul className="footer-section-links">
+                  {section.links.map((link) => (
+                    <li key={link.name}>
+                      <Link href={link.url} className="footer-link">
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
-          <div className="flex flex-col justify-between">
-            <div className="grid grid-cols-4 gap-10">
-              {footerData.map((section) => (
-                <div key={section.title}>
-                  <h4 className="font-semibold text-lg">{section.title}</h4>
-                  <ul className="mt-2 space-y-5 font-thin">
-                    {section.links.map((link) => (
-                      <li key={link.name}>
-                        <a
-                          href={link.url}
-                          className="text-gray-600 hover:text-gray-900"
-                        >
-                          {link.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+
+          <div className="footer-socials">
+            <h3 className="footer-socials-title">Keep up with us</h3>
+            <div className="footer-social-icons">
+              {socialLinks.map((social) => (
+                <Link
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-social-link"
+                >
+                  <Image
+                    src={social.icon}
+                    alt={social.name}
+                    width={24}
+                    height={24}
+                  />
+                  {social.name}
+                </Link>
               ))}
             </div>
-            <div className="flex gap-5 mx-10">
-              <h3 className="text-foreground text-lg font-semibold">Keep up with us</h3>
-            {socialLinks.map((social)=> (
-               <ul key={social.name} className="flex items-center gap-2 text-primary text-sm">
-                <Image src={social.icon} alt="social handle"/>
-                  <li>{social.name}</li>  
-               </ul> 
-            ))}
-            
           </div>
-           </div>
         </div>
-      </footer>
-    );
-}
+      </div>
+    </footer>
+  );
+};

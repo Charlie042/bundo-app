@@ -5,24 +5,180 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #0A2211;
   --primary: #34A853;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ededed;
-    --foreground: #11270B;
-  }
+  --secondary: #F1E9DB;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: 'TV 2 Sans Condensed', sans-serif;
 }
 
 .flex-center{
   @apply flex gap-2 py-7 cursor-pointer px-5 hover:text-[#808080]
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 147,65%,43%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+@layer components {
+  
+  /* For NavBar */
+  .nav-container {
+    @apply flex justify-between items-center py-5 mx-10;
+  }
+
+  .nav-links {
+    @apply flex items-center gap-10;
+  }
+
+  .marketplace-container {
+    @apply flex justify-center items-center gap-3 max-sm:hidden;
+  }
+
+  .cart-container {
+    @apply flex items-center justify-center gap-1;
+  }
+
+  .cart-badge {
+    @apply bg-red-500 text-white rounded-full px-2 text-sm;
+  }
+
+  .user-container {
+    @apply flex items-center gap-2 max-sm:hidden;
+  }
+
+  .user-avatar {
+    @apply w-12 h-12 flex items-center justify-center bg-primary text-white text-lg font-medium rounded-full;
+  }
+
+  .menu-icon {
+    @apply cursor-pointer;
+  }
+
+  .overlay {
+    @apply fixed bg-black bg-opacity-50 inset-0 z-20;
+  }
+
+  /* for the footer */
+    .footer-container {
+      @apply p-6 md:p-10 bg-[#fff] mx-auto;
+    }
+  
+    .footer-logo {
+      @apply mb-10 flex flex-col gap-3 items-start;
+    }
+  
+    .footer-tagline {
+      @apply font-extralight text-gray-600;
+    }
+  
+    .footer-content {
+      @apply flex flex-col-reverse lg:flex-row mx-auto;
+    }
+  
+    .footer-image {
+      @apply w-full md:w-1/3 flex justify-center md:justify-start md:mr-5 lg:mr-20;
+    }
+  
+    .footer-img-style {
+      @apply w-full object-cover;
+    }
+  
+    .footer-links {
+      @apply flex flex-col justify-between w-full md:w-2/3;
+    }
+  
+    .footer-grid {
+      @apply grid grid-cols-2 max-w-[500px] gap-10 lg:grid-cols-4 lg:max-w-[800px];
+    }
+  
+    .footer-section-title {
+      @apply font-semibold text-lg;
+    }
+  
+    .footer-section-links {
+      @apply mt-2 space-y-3 font-thin;
+    }
+  
+    .footer-link {
+      @apply text-gray-600 hover:text-gray-900;
+    }
+  
+    .footer-socials {
+      @apply flex flex-col lg:flex-row gap-5 my-8;
+    }
+  
+    .footer-socials-title {
+      @apply text-lg font-semibold text-foreground;
+    }
+  
+    .footer-social-icons {
+      @apply flex gap-4 flex-wrap;
+    }
+  
+    .footer-social-link {
+      @apply flex items-center gap-2 text-primary text-sm hover:text-gray-900 transition;
+    }
+    
 }

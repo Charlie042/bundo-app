@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 interface FooterLink {
   name: string;
   url: string;
 }
 
-interface FooterSection {
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
+ interface FooterSection {
   title: string;
   links: FooterLink[];
 }
