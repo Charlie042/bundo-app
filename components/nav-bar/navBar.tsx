@@ -10,7 +10,7 @@ export const NavBar = ()=>{
     const [isOpen, setIsOpen] = useState(false)
     return (
       <>
-        <nav className="flex justify-between items-center py-5 px-10">
+        <nav className="flex justify-between items-center py-5">
           <div>
             <Image
               src="/Bundo-Logo/FullLogo.png"

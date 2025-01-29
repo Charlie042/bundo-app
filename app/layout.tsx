@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={``}
+        className={`px-40 border-black`}
       >
          <NavBar/>
         {children}
