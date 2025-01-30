@@ -87,7 +87,7 @@ body {
   
   /* For NavBar */
   .nav-container {
-    @apply flex justify-between items-center py-5 mx-10;
+    @apply flex justify-between items-center py-5 mx-20;
   }
 
   .nav-links {
@@ -124,7 +124,7 @@ body {
 
   /* for the footer */
     .footer-container {
-      @apply p-6 md:p-10 bg-[#fff] mx-auto;
+      @apply p-6 md:p-10 bg-[#fff] mx-10;
     }
   
     .footer-logo {

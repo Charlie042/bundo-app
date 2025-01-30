@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { NavBar } from "@/components/nav-bar/navBar";
 import { Footer } from "@/components/footer/footer";
-import { QueryProvider } from "@/components/QueryProvider";
+import { QueryProvider } from "@/utils/QueryProvider";
 
 export const metadata: Metadata = {
   title: "Bundo App",
