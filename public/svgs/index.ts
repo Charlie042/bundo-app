@@ -5,6 +5,8 @@ import instagram from "./instagram.svg"
 import facebook from "./facebook.svg"
 import linkedin from "./linkedin.svg"
 import twitter from "./twitter.svg"
+import tag from "./tag.svg"
+import locations from "./location.svg"
 
 
 export {
@@ -14,5 +16,7 @@ export {
     instagram,
     facebook,
     linkedin,
-    twitter
+    twitter,
+    tag,
+    locations
 }

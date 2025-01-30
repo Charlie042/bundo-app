@@ -3,11 +3,11 @@ import { Accordion,AccordionContent,AccordionItem,AccordionTrigger } from "@/com
 export const FaqSection = () =>{
     return (
       <div className="bg-secondary px-6 py-12">
-        <div className="flex items-center flex-col">
+        <div className="flex items-center flex-col my-10">
           <h2 className="text-6xl font-bold text-center">
             Frequently Asked <span className="text-primary">Questions</span>
           </h2>
-          <p className="font-extralight lg:max-w-[30%] md:[50%] sm:max-w-[70%] text-center my-5 text-[#11270B]">
+          <p className="font-extralight lg:max-w-[30%] md:max-w-[50%] sm:max-w-[70%] text-center my-10 text-[#11270B]">
             Need help? Check out these answers to questions you might have about
             Bundo.{" "}
             <span className="font-semibold">
@@ -17,7 +17,7 @@ export const FaqSection = () =>{
 
           <Accordion type="single" collapsible className="lg:w-1/2 md:w-[60%] sm:w-[70%]">
             <AccordionItem value="What is Bundo">
-              <AccordionTrigger className="hover:no-underline">
+              <AccordionTrigger className="hover:no-underline  ">
                 <span className="text-black font-bold text-lg">
                   What is Bundo
                 </span>

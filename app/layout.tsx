@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { NavBar } from "@/components/nav-bar/navBar";
 import { Footer } from "@/components/footer/footer";
+import { QueryProvider } from "@/components/QueryProvider";
 
 export const metadata: Metadata = {
   title: "Bundo App",
@@ -15,12 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={` border-black`}
-      >
-         <NavBar/>
-        {children}
-        <Footer/>
+      <body className={` border-black`}>
+        <NavBar />
+        <QueryProvider>{children}</QueryProvider>
+
+        <Footer />
       </body>
     </html>
   );

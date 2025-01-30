@@ -5,6 +5,7 @@ import { Menu } from "lucide-react";
 import { Shoppingbag } from "@/public/svgs";
 import { useState } from "react";
 import { Slider } from "./_components/slider";
+import { BundoLogo } from "@/public/images";
 
 export const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +15,7 @@ export const NavBar = () => {
       <nav className="nav-container">
         <div>
           <Image
-            src="/Bundo-Logo/FullLogo.png"
+            src={BundoLogo}
             alt="bundo logo"
             width={100}
             height={100}
