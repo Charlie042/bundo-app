@@ -7,7 +7,7 @@ import linkedin from "./linkedin.svg"
 import twitter from "./twitter.svg"
 import tag from "./tag.svg"
 import locations from "./location.svg"
-
+import marker from './marker.svg'
 
 export {
     SearchIcon,
@@ -18,5 +18,6 @@ export {
     linkedin,
     twitter,
     tag,
-    locations
+    locations,
+    marker
 }

@@ -8,6 +8,7 @@ import { useFormWithSchema } from "@/hooks/useFormWithSchema";
 import { Controller } from "react-hook-form";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import { usePostData } from "@/hooks/useFetchData";
+import { SliderProps } from "@/app/model/Navbar";
 
 
 
@@ -25,14 +26,14 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
   );
   const mutation = usePostData()
 
-  // Add Places library hook
+ 
   const places = useMapsLibrary("places");
   const inputRef = useRef<HTMLInputElement>(null);
   const [placeAutocomplete, setPlaceAutocomplete] =
     useState<google.maps.places.Autocomplete | null>(null);
   const [selectedPlace, setSelectedPlace] =
     useState<google.maps.places.PlaceResult | null>(null);
-  // Initialize Places Autocomplete
+
   useEffect(() => {
     if (!places || !inputRef.current) return;
 
@@ -44,7 +45,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
     setPlaceAutocomplete(autocomplete);
   }, [places]);
 
-  // Handle place selection
+ 
   useEffect(() => {
     if (!placeAutocomplete) return;
 
@@ -109,7 +110,12 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
       transition={{ type: "spring", stiffness: 100, damping: 15 }}
       className="fixed right-0 top-20 w-[500px] h-[550px] bg-white shadow-lg z-50 rounded-md"
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="h-full flex flex-col">
+      <form
+        onSubmit={handleSubmit(
+          onSubmit as unknown as (data: { image?: string | undefined; Address: string; BusinessName: string; }) => void
+        )}
+        className="h-full flex flex-col"
+      >
         <div className="relative p-6 shadow-lg">
           <button
             type="button"
@@ -142,6 +148,8 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
                     src={SearchIcon}
                     alt="Search Icon"
                     className="absolute left-2 top-3 w-5 h-5"
+                    width={20}
+                    height={20}
                   />
                 </div>
               )}

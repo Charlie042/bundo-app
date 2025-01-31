@@ -6,6 +6,7 @@ import { Shoppingbag } from "@/public/svgs";
 import { useState } from "react";
 import { Slider } from "./_components/slider";
 import { BundoLogo } from "@/public/images";
+import Link from "next/link";
 
 export const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,19 +14,19 @@ export const NavBar = () => {
   return (
     <>
       <nav className="nav-container">
-        <div>
+        <Link href="/">
           <Image
             src={BundoLogo}
             alt="bundo logo"
             width={100}
             height={100}
           />
-        </div>
+        </Link>
         <div className="nav-links">
           <div className="marketplace-container">
             <span className="text-primary font-medium">Marketplace</span>
             <div className="cart-container">
-              <Image src={Shoppingbag} alt="shopping bag icon" />
+              <Image src={Shoppingbag} alt="shopping bag icon" width={20} height={20}/>
               <span className="cart-badge">0</span>
             </div>
           </div>
@@ -34,7 +35,7 @@ export const NavBar = () => {
             <div className="user-avatar">M</div>
           </div>
 
-          <Image src={Shoppingbag} alt="shopping bag icon" height={24} />
+          <Image src={Shoppingbag} alt="shopping bag icon" height={24} width={20} />
 
           <div className="menu-icon" onClick={() => setIsOpen(true)}>
             <Menu size={34} className="text-primary font-bold" />

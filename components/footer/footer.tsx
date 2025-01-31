@@ -7,7 +7,7 @@ export const Footer = () => {
   return (
     <footer className="footer-container">
       <div className="footer-logo">
-        <Image src={BundoLogo} alt="Bundo Logo" height={24} className="w-20" />
+        <Image src={BundoLogo} alt="Bundo Logo" height={24} width={20} className="w-20" />
         <span className="footer-tagline">Simplifying Retail.</span>
       </div>
 

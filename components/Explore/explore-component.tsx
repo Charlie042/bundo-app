@@ -1,3 +1,5 @@
+"use client"
+
 import { Plus } from "lucide-react";
 import Modal from "./_components/Modal-explore"
 import { useState } from "react";

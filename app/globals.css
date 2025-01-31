@@ -187,4 +187,8 @@ body {
       @apply flex justify-center w-6 h-6 bg-[#D6EEDD] rounded-full
     }
     
+
+    .map-styling{
+      @apply w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[90%] h-[50vh] lg:h-[60vh] mx-auto
+    }
 }
