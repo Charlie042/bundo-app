@@ -11,10 +11,13 @@ export function cn(...inputs: ClassValue[]) {
   return `${minutes} min ${remainingSeconds} sec`;
 }
 
-export const formatAddress = (address: string): string => {
-  const segments = address.split(',');
+export const formatAddress = (address?: string): string => {
+  if (!address) return "Address not available"; // Handle missing address
+
+  const segments = address.split(",");
   if (segments.length >= 2) {
-    return segments.slice(-2).map(s => s.trim()).join(', ');
+    return segments.slice(-2).map((s) => s.trim()).join(", ");
   }
-  return address; 
+  
+  return address.trim(); // Ensure trimmed output for single-part addresses
 };

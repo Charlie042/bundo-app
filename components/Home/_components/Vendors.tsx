@@ -21,7 +21,7 @@ export const Vendors = () => {
                   name={item.name}
                   distance={formatTime(item.minutes_away)}
                   description={item.description}
-                  location={formatAddress(item.address)}
+                  location={formatAddress(item.address) || "No address"}
                   categories={item.categories}
                   ratings={{
                     average: item.average_rating || 0,
