@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Menu } from "lucide-react";
-
+import Avatar from "../ui/avatar";
 import { useState } from "react";
 import { Slider } from "./_components/slider";
 import { BundoLogo } from "@/public/images";
@@ -33,7 +33,7 @@ export const NavBar = () => {
           </div>
           <div className="user-container">
             <span className="text-foreground">Hi Michael!</span>
-            <div className="user-avatar">M</div>
+            <Avatar name="Michael"/>
           </div>
 
           <Image

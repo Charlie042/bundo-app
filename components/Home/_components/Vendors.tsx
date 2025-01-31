@@ -2,17 +2,27 @@
 
 import { formatTime,formatAddress} from "@/lib/utils"
 import { useFetchData } from "@/hooks/useFetchData"
+import { Skeleton } from "@/components/ui/skeleton"
 import VendorCard from "@/components/ui/VendorCard"
 export const Vendors = () => {
     const {data, isLoading, isError,error} = useFetchData()
     console.log(data)
-    if(isLoading) return<p>loading...</p>
+   if (isLoading)
+     return (
+       <div className="grid grid-cols-1 gap-10 lg:grid-cols-5 xl:grid-col-6 m-20 ">
+         <Skeleton className="skeleton-style" />
+         <Skeleton className="skeleton-style" />
+         <Skeleton className="skeleton-style" />
+         <Skeleton className="skeleton-style" />
+         <Skeleton className="skeleton-style" />
+       </div>
+     );
     if(isError)return <p>Error: {error.message}</p>
 
 
     return (
       <>
-        <div className="text-black flex flex-wrap gap-10  my-20 mx-20">
+        <div className="text-black grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10  m-2 lg:m-10">
           {Array.isArray(data) &&
             data.map((item) => (
               <div key={item._id} className="bg-card ">

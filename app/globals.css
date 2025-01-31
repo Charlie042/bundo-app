@@ -124,7 +124,7 @@ body {
 
   /* for the footer */
     .footer-container {
-      @apply p-6 md:p-10 bg-[#fff] mx-10;
+      @apply p-6 md:p-10 bg-[#fff] mx-10 md:mx-auto;
     }
   
     .footer-logo {
@@ -148,11 +148,11 @@ body {
     }
   
     .footer-links {
-      @apply flex flex-col justify-between w-full md:w-2/3;
+      @apply flex flex-col justify-between w-full ;
     }
   
     .footer-grid {
-      @apply grid grid-cols-2 max-w-[500px] gap-10 lg:grid-cols-4 lg:max-w-[800px];
+      @apply grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-10 lg:grid-cols-4 lg:max-w-[800px];
     }
   
     .footer-section-title {
@@ -190,5 +190,8 @@ body {
 
     .map-styling{
       @apply w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[90%] h-[50vh] lg:h-[60vh] mx-auto
+    }
+    .skeleton-style{
+      @apply bg-[#F1E9DB] border-[#D6EEDD] rounded-lg shadow-sm max-w-96 p-6 h-96
     }
 }

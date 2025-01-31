@@ -14,7 +14,7 @@ import { SliderProps } from "@/app/model/Navbar";
 
 
 const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
-  const { handleSubmit, control, setValue, reset } = useFormWithSchema(
+  const { handleSubmit, control, setValue, reset ,formState:{errors}} = useFormWithSchema(
     modalSchema,
     {
       defaultValues: {
@@ -24,7 +24,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
       },
     }
   );
-  const mutation = usePostData()
+  const {mutate,isError,isPending} = usePostData()
 
  
   const places = useMapsLibrary("places");
@@ -57,7 +57,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
     });
   }, [placeAutocomplete, setValue]);
 
-  const onSubmit = (Modaldata:ModalDataProps) => {
+  const onSubmit = async (Modaldata: ModalDataProps) => {
     const formData: ModalApiProps = {
       id: "c854b059-23a0-4161-88e1-ea66017eb32e",
       lat: selectedPlace?.geometry?.location?.lat() ?? 0,
@@ -66,15 +66,29 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
       businessName: Modaldata.BusinessName,
       businessProfilePicture: Modaldata.image,
     };
-    console.log("Form Data:", formData);
-    mutation.mutate(formData,{
-      onSuccess: ()=>{
-        console.log("bad Ass!!")
-      },
-      onError:()=>{
-        console.log("you can do it!")
+      const ginger = JSON.stringify(formData);
+      console.log(ginger)
+    try {
+      const response = await fetch(
+        "https://dny4au0opl.execute-api.us-west-2.amazonaws.com/Stage",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    })
+
+      const data = await response.json();
+      console.log("Response Data:", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleClose = () => {
@@ -108,11 +122,15 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
       initial={{ x: "100%" }}
       animate={{ x: isOpen ? xValue : "100%" }}
       transition={{ type: "spring", stiffness: 100, damping: 15 }}
-      className="fixed right-0 top-20 w-[500px] h-[550px] bg-white shadow-lg z-50 rounded-md"
+      className="fixed right-0 top-20 max-w-[70%] lg:w-[500px] h-[550px] bg-white shadow-lg z-50 rounded-md"
     >
       <form
         onSubmit={handleSubmit(
-          onSubmit as unknown as (data: { image?: string | undefined; Address: string; BusinessName: string; }) => void
+          onSubmit as unknown as (data: {
+            image?: string | undefined;
+            Address: string;
+            BusinessName: string;
+          }) => void
         )}
         className="h-full flex flex-col"
       >
@@ -144,6 +162,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
                     placeholder="21b Joy Avenue, Ajao Estate"
                     className="w-full p-3 border rounded-md pl-8 outline-primary bg-[#DEF2FB33]"
                   />
+                   <p className="text-red-500 text-sm font-thin mt-2">{errors.BusinessName?.message}</p>
                   <Image
                     src={SearchIcon}
                     alt="Search Icon"
@@ -164,12 +183,15 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
               name="BusinessName"
               control={control}
               render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  placeholder="Hair Ventures"
-                  className="w-full p-3 border rounded-md outline-primary bg-[#DEF2FB33]"
-                />
+                <div>
+                  <input
+                    {...field}
+                    type="text"
+                    placeholder="Hair Ventures"
+                    className="w-full p-3 border rounded-md outline-primary bg-[#DEF2FB33]"
+                  />
+                  <p className="text-red-500 text-sm font-thin mt-2">{errors.BusinessName?.message}</p>
+                </div>
               )}
             />
           </div>

@@ -21,7 +21,6 @@ export const useFetchData = () => {
 const fetchGetData = async():Promise<RootType> =>{
     const response = await api.get("/Stage/businessLocations")
      
-    console.log(response);
     return response.data.data
     
 }
@@ -34,17 +33,21 @@ export const useFetchGetData = () => {
   });
 };
 
-export const PostData = async (data: ModalApiProps) => {
-  const response = await api.post('/Stage',data)
-  return response
-}
+export const postData = async (data: ModalApiProps) => {
+  try {
+    const response = await api.post("/Stage", data);
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const usePostData = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: PostData,
-    mutationKey: ["location"],
+    mutationFn: postData,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["Stage"] }); 
     },

@@ -27,7 +27,7 @@ const VendorCard = ({
     setIsLiked(true)
   }
   return (
-    <div className="max-w-80 bg-[#FCFBF8] rounded-lg overflow-hidden  border-[0.69px] border-[#D6EEDD]  p-6">
+    <div className="max-w-96 bg-[#FCFBF8] rounded-lg overflow-hidden shadow-sm border-[0.69px] border-[#D6EEDD]  p-6">
       <div className="flex justify-between items-start mb-4">
         {/* Logo and Favorite Section */}
         <div className="relative">
@@ -66,7 +66,7 @@ const VendorCard = ({
         <div className="flex items-center gap-2 text-foreground">
           <div className="tag-icon">
             <Image
-              src={locations}
+              src="/svgs/location.svg"
               alt="tag image"
               width={15}
               height={50}
@@ -81,7 +81,7 @@ const VendorCard = ({
         <div className="flex flex-wrap gap-2">
           <div className="tag-icon">
             <Image
-              src={tag}
+              src="/svgs/tag.svg"
               alt="tag image"
               width={20}
               height={20}

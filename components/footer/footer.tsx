@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { FooterImg, BundoLogo } from "@/public/images";
 import { footerData, socialLinks } from "./_components/data";
 import Link from "next/link";
 

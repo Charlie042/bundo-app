@@ -3,12 +3,20 @@
 import { useFetchGetData } from "@/hooks/useFetchData";
 import { Map, AdvancedMarker } from "@vis.gl/react-google-maps";
 import Avatar from "@/components/ui/avatar";
-import { marker } from "@/public/svgs";
+import { AutocompleteCustom } from "@/components/Explore/_components/AutocompleteCustom";
+import Image from "next/image";
 import { EmptyMap } from "./empty-map.";
+import { useState } from "react";
+import MapHandler from "./map-handler";
+import { Skeleton } from "@/components/ui/skeleton";
 export const VendorsLocation = () => {
   const { data, isLoading, isError, error } = useFetchGetData();
+   const [selectedPlace, setSelectedPlace] =
+     useState<google.maps.places.PlaceResult | null>(null);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return (
+    <Skeleton className="border bg-[#F1E9DB] flex flex-col justify-center gap-5 items-center map-styling rounded-lg my-10" />
+  );
   if (isError) return <p>Error: {error.message}</p>;
 
   console.log(data);
@@ -25,14 +33,20 @@ export const VendorsLocation = () => {
   return (
     <div className="my-10">
       {markers.length === 0 ? (
-        <EmptyMap/>
+        <EmptyMap />
       ) : (
-        <div className="overflow-hidden border-[#C9C2B6] border rounded-2xl map-styling">
+        <div className=" border-[#C9C2B6] border rounded-2xl map-styling">
           <Map
             defaultCenter={{ lat: 6.5364553, lng: 3.317691999999999 }}
             defaultZoom={12}
             mapId="TRYING_ID"
+            disableDefaultUI
           >
+            <div className="absolute top-5 left-5">
+              {" "}
+              <AutocompleteCustom onPlaceSelect={setSelectedPlace} />
+            </div>
+
             {markers.map((marker, index) => (
               <AdvancedMarker
                 key={index}
@@ -42,6 +56,7 @@ export const VendorsLocation = () => {
               </AdvancedMarker>
             ))}
           </Map>
+          <MapHandler place={selectedPlace}/>
         </div>
       )}
     </div>
