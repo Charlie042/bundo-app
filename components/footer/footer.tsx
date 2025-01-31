@@ -7,15 +7,22 @@ export const Footer = () => {
   return (
     <footer className="footer-container">
       <div className="footer-logo">
-        <Image src={BundoLogo} alt="Bundo Logo" height={24} width={20} className="w-20" />
+        <Image
+          src="/images/FullLogo.png"
+          alt="Bundo Logo"
+          height={50}
+          width={50}
+          className="w-20"
+        />
         <span className="footer-tagline">Simplifying Retail.</span>
       </div>
 
       <div className="footer-content">
         <div className="footer-image">
           <Image
-            src={FooterImg}
+            src="/images/FooterImg.png"
             alt="Bundo App"
+            width={500}
             height={500}
             className="footer-img-style"
           />

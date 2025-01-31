@@ -1,5 +1,3 @@
-import TheUser from "@/public/svgs/user.svg";
-import SearchIcon from "@/public/svgs/search.svg";
 import Image from "next/image";
 import { CircleX } from "lucide-react";
 import { motion } from "motion/react";
@@ -24,11 +22,11 @@ export const Slider = ({ isOpen,setIsOpen }: SliderProps) => {
       </div>
       <div>
         <Link href='/Explore' onClick={()=> setIsOpen(false)} className="flex-center mt-5">
-          <Image src={SearchIcon} alt="search icon" width={20} height={20}/>
+          <Image src="/svgs/search.svg" alt="search icon" width={20} height={20}/>
           <span>Explore</span>
         </Link>
         <div className="flex-center">
-          <Image src={TheUser} alt="user icon"  width={20} height={20}/>
+          <Image src="/svgs/user.svg" alt="user icon"  width={20} height={20}/>
           <span>Account</span>
         </div>
       </div>

@@ -37,8 +37,8 @@ export const footerData: FooterSection[] = [
 
 
 export const socialLinks: SocialLink[] = [
-  { name: "Instagram", url: "https://instagram.com", icon: instagram },
-  { name: "Twitter", url: "https://twitter.com", icon: twitter },
-  { name: "Facebook", url: "https://facebook.com", icon: facebook },
-  { name: "LinkedIn", url: "https://linkedin.com", icon: linkedin },
+  { name: "Instagram", url: "https://instagram.com", icon: "/svgs/instagram.svg" },
+  { name: "Twitter", url: "https://twitter.com", icon: "/svgs/twitter.svg" },
+  { name: "Facebook", url: "https://facebook.com", icon: "/svgs/facebook.svg" },
+  { name: "LinkedIn", url: "https://linkedin.com", icon: "/svgs/linkedin.svg" },
 ];

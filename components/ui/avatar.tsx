@@ -13,16 +13,15 @@ const sizeClasses = {
 };
 
 const Avatar: React.FC<AvatarProps> = ({ name, size = "medium", imageUrl }) => {
-  const [image] = useState<string | null>(imageUrl || null);
-
+  
   return (
     <div className="flex flex-col items-center space-y-2">
       <div
         className={`relative ${sizeClasses[size]} flex items-center justify-center rounded-full bg-[#34A853] text-white font-bold uppercase  overflow-hidden`}
       >
-        {image ? (
+        {imageUrl ? (
           <Image
-            src={image}
+            src={imageUrl}
             alt="Avatar"
             width={50}
             height={50}

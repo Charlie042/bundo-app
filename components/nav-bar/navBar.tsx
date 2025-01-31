@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import { Menu } from "lucide-react";
-import { Shoppingbag } from "@/public/svgs";
+
 import { useState } from "react";
 import { Slider } from "./_components/slider";
 import { BundoLogo } from "@/public/images";
 import Link from "next/link";
+import { Shoppingbag } from "@/public/svgs";
 
 export const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,18 +16,18 @@ export const NavBar = () => {
     <>
       <nav className="nav-container">
         <Link href="/">
-          <Image
-            src={BundoLogo}
-            alt="bundo logo"
-            width={100}
-            height={100}
-          />
+          <Image src={BundoLogo} alt="bundo logo" width={100} height={100} />
         </Link>
         <div className="nav-links">
           <div className="marketplace-container">
             <span className="text-primary font-medium">Marketplace</span>
             <div className="cart-container">
-              <Image src={Shoppingbag} alt="shopping bag icon" width={20} height={20}/>
+              <Image
+                src="/svgs/shoppingbag.svg"
+                alt="shopping bag icon"
+                width={20}
+                height={20}
+              />
               <span className="cart-badge">0</span>
             </div>
           </div>
@@ -35,8 +36,12 @@ export const NavBar = () => {
             <div className="user-avatar">M</div>
           </div>
 
-          <Image src={Shoppingbag} alt="shopping bag icon" height={24} width={20} />
-
+          <Image
+            src="/svgs/shoppingbag.svg"
+            alt="shopping bag icon"
+            height={24}
+            width={20}
+          />
           <div className="menu-icon" onClick={() => setIsOpen(true)}>
             <Menu size={34} className="text-primary font-bold" />
           </div>
