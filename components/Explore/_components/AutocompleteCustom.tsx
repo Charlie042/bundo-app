@@ -90,7 +90,7 @@ export const AutocompleteCustom = ({ onPlaceSelect }: Props) => {
 
   return (
     <div className="relative">
-      <div className="flex items-center border rounded-sm">
+      <div className="flex items-center border rounded-lg">
         <input
           value={inputValue}
           onInput={(event: FormEvent<HTMLInputElement>) => onInputChange(event)}

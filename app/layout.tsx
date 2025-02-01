@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` border-black`}>
+      <body className={` max-w-[1550px] mx-auto`}>
         <NavBar />
         <QueryProvider>{children}</QueryProvider>
 

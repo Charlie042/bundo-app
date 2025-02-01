@@ -9,10 +9,20 @@ import { EmptyMap } from "./empty-map.";
 import { useState } from "react";
 import MapHandler from "./map-handler";
 import { Skeleton } from "@/components/ui/skeleton";
+import { LuRefreshCw } from "react-icons/lu";
+
 export const VendorsLocation = () => {
-  const { data, isLoading, isError, error } = useFetchGetData();
+  const { data, isLoading, isError, error,refetch } = useFetchGetData();
    const [selectedPlace, setSelectedPlace] =
      useState<google.maps.places.PlaceResult | null>(null);
+
+     const [isRotate, setIsRotate] = useState(false);
+
+     const handleRotate = () =>{
+       setIsRotate(true);
+       refetch()
+       setTimeout(() => setIsRotate(false), 2000);
+     }
 
   if (isLoading) return (
     <Skeleton className="border bg-[#F1E9DB] flex flex-col justify-center gap-5 items-center map-styling rounded-lg my-10" />
@@ -35,7 +45,16 @@ export const VendorsLocation = () => {
       {markers.length === 0 ? (
         <EmptyMap />
       ) : (
-        <div className=" border-[#C9C2B6] border rounded-2xl map-styling">
+        <div className="overflow-hidden border-[#C9C2B6] border rounded-2xl map-styling">
+          <div className=" relative">
+            <button
+              className="py-2 rounded-md bg-white absolute z-20 right-20 top-5 hover:bg-gray-100 "
+              onClick={handleRotate}
+            >
+             <LuRefreshCw className={`w-10 h-5 ${isRotate ? "animate-spin" : ""}`}/>
+            </button>
+          </div>
+
           <Map
             defaultCenter={{ lat: 6.5364553, lng: 3.317691999999999 }}
             defaultZoom={12}
@@ -56,7 +75,7 @@ export const VendorsLocation = () => {
               </AdvancedMarker>
             ))}
           </Map>
-          <MapHandler place={selectedPlace}/>
+          <MapHandler place={selectedPlace} />
         </div>
       )}
     </div>

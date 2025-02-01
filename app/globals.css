@@ -16,7 +16,7 @@ body {
 }
 
 .flex-center{
-  @apply flex gap-2 py-7 cursor-pointer px-5 hover:text-[#808080]
+  @apply flex gap-2 py-7 cursor-pointer px-5
 }
 
 @layer base {
@@ -87,7 +87,7 @@ body {
   
   /* For NavBar */
   .nav-container {
-    @apply flex justify-between items-center py-5 mx-20;
+    @apply flex justify-between items-center py-5 mx-5;
   }
 
   .nav-links {
@@ -124,7 +124,7 @@ body {
 
   /* for the footer */
     .footer-container {
-      @apply p-6 md:p-10 bg-[#fff] mx-10 md:mx-auto;
+      @apply p-6 md:p-10 bg-[#fff]  md:mx-auto;
     }
   
     .footer-logo {

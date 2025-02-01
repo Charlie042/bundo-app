@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { CircleX } from "lucide-react";
-import { motion } from "framer-motion"; // Fixed incorrect import from motion/react
+import { motion } from "framer-motion";
 import Image from "next/image";
 import SearchIcon from "@/public/svgs/search.svg";
 import { modalSchema } from "./modal-schema";
@@ -66,29 +66,15 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
       businessName: Modaldata.BusinessName,
       businessProfilePicture: Modaldata.image,
     };
-      const ginger = JSON.stringify(formData);
-      console.log(ginger)
-    try {
-      const response = await fetch(
-        "https://dny4au0opl.execute-api.us-west-2.amazonaws.com/Stage",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+     mutate(formData,{
+      onSuccess:()=> {
+        handleClose()
+        console.log("so it worked!")
+      },
+      onError:()=>{
+        console.error("Failed to save")
       }
-
-      const data = await response.json();
-      console.log("Response Data:", data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+     })
   };
 
   const handleClose = () => {
@@ -159,12 +145,12 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
                     {...field}
                     ref={inputRef}
                     type="text"
-                    placeholder="21b Joy Avenue, Ajao Estate"
+                    placeholder="Enter Address"
                     className="w-full p-3 border rounded-md pl-8 outline-primary bg-[#DEF2FB33]"
                   />
-                   <p className="text-red-500 text-sm font-thin mt-2">{errors.BusinessName?.message}</p>
+                   <p className="text-red-500 text-sm font-thin mt-2">{errors.Address?.message}</p>
                   <Image
-                    src={SearchIcon}
+                    src="/svgs/search.svg"
                     alt="Search Icon"
                     className="absolute left-2 top-3 w-5 h-5"
                     width={20}
@@ -187,7 +173,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
                   <input
                     {...field}
                     type="text"
-                    placeholder="Hair Ventures"
+                    placeholder="Business Name"
                     className="w-full p-3 border rounded-md outline-primary bg-[#DEF2FB33]"
                   />
                   <p className="text-red-500 text-sm font-thin mt-2">{errors.BusinessName?.message}</p>
