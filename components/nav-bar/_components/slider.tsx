@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { House } from "lucide-react";
 import { SliderProps } from "@/app/model/Navbar";
-import NotificationToggle from "./push-notification";
+// import NotificationToggle from "./push-notification";
 
 export const Slider = ({ isOpen,setIsOpen }: SliderProps) => {
   return (
@@ -56,7 +56,7 @@ export const Slider = ({ isOpen,setIsOpen }: SliderProps) => {
           </div>
         </div>
         <div className="flex-center">
-          <NotificationToggle />
+          {/* <NotificationToggle /> */}
         </div>
       </div>
     </motion.div>
