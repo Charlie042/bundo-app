@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function Explore() {
  
   return (
-    <div className="max-w-[1527px] mx-auto ">
+    <div className=" ">
       <APIProvider
         apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ||""}
       >

@@ -87,11 +87,11 @@ body {
   
   /* For NavBar */
   .nav-container {
-    @apply flex justify-between items-center py-5 mx-5;
+    @apply flex justify-between items-center py-5 ;
   }
 
   .nav-links {
-    @apply flex items-center gap-10;
+    @apply flex items-center  gap-10;
   }
 
   .marketplace-container {
@@ -119,7 +119,7 @@ body {
   }
 
   .overlay {
-    @apply fixed bg-black bg-opacity-50 inset-0 z-20;
+    @apply fixed bg-black bg-opacity-50 inset-0 z-40;
   }
 
   /* for the footer */
@@ -189,7 +189,7 @@ body {
     
 
     .map-styling{
-      @apply w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[90%] h-[50vh] lg:h-[60vh] mx-auto
+      @apply w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[100%] h-[70vh] lg:h-[60vh] mx-auto
     }
     .skeleton-style{
       @apply bg-[#F1E9DB] border-[#D6EEDD] rounded-lg shadow-sm max-w-96 p-6 h-96

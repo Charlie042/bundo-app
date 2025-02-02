@@ -3,6 +3,7 @@ import "./globals.css";
 import { NavBar } from "@/components/nav-bar/navBar";
 import { Footer } from "@/components/footer/footer";
 import { QueryProvider } from "@/utils/QueryProvider";
+// import { FirebaseNotifications } from "@/components/fireBase/messaging";
 
 export const metadata: Metadata = {
   title: "Bundo App",
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={` max-w-[1550px] mx-auto`}>
         <NavBar />
+        {/* <FirebaseNotifications/> */}
         <QueryProvider>{children}</QueryProvider>
 
         <Footer />

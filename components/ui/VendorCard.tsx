@@ -53,14 +53,14 @@ const VendorCard = ({
         <h3 className="text-xl font-semibold text-foreground">{name}</h3>
 
         {/* Distance Badge */}
-        <div className="flex items-center gap-1">
-          <div className="flex items-center gap-1 text-[8px] text-gray-600">
+       
+          <div className="flex items-center gap-1 text-[10px] text-gray-600">
+            <Image src="/images/locationMarker.webp" alt="location marker" width={20} height={20}/>
             <span>{distance} minutes away from you</span>
-          </div>
         </div>
 
         {/* Description */}
-        <p className="text-foreground text-[12px]">{description}</p>
+          <p className="text-foreground text-[12px]">{description}</p>
 
         {/* Location */}
         <div className="flex items-center gap-2 text-foreground">

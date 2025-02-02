@@ -35,7 +35,11 @@ export const useFetchGetData = () => {
 
 export const postData = async (data: ModalApiProps) => {
   try {
-    const response = await api.post("/Stage", data);
+    const response = await api.post("/Stage", data,{
+      headers:{
+        "Content-Type": undefined
+      }
+    });
     
     return response.data;
   } catch (error) {

@@ -11,7 +11,7 @@ export const ExploreComp = () =>{
         console.log("clicked")
     }
     return (
-      <div className="flex max-md:flex-col justify-between mt-10 items-start gap-2 ml-10">
+      <div className="flex max-md:flex-col justify-between mt-10 items-start gap-2 ">
         <h2 className="text-2xl">Explore Buisness</h2>
         <button
           onClick={handleModal}
