@@ -6,7 +6,6 @@ import { Skeleton } from "@/components/ui/skeleton"
 import VendorCard from "@/components/ui/VendorCard"
 export const Vendors = () => {
     const {data, isLoading, isError,error} = useFetchData()
-    console.log(data)
    if (isLoading)
      return (
        <div className="grid grid-cols-1 gap-10 lg:grid-cols-5 xl:grid-col-6 m-20 ">

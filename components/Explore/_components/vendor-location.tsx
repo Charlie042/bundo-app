@@ -29,7 +29,6 @@ export const VendorsLocation = () => {
   );
   if (isError) return <p>Error: {error.message}</p>;
 
-  console.log(data);
 
   const markers = Array.isArray(data)
     ? data.map((business) => ({

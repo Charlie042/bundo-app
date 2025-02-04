@@ -10,7 +10,6 @@ export const ExploreComp = () => {
 
     const handleModal = () => {
         setIsOpen(prev => !prev)
-        console.log("clicked")
     }
     return (
       <div className="flex max-md:flex-col justify-between mt-10 items-start gap-2 mx-10 lg:mx-5 xl:mx-3">

@@ -20,7 +20,6 @@ const VendorCard = ({
 }: VendorCardProps) => {
   const [isLiked, setIsLiked] = useState(false)
 
-  console.log(location)
 
   const handleClicked = ()=>{
     onFavorite();

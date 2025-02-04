@@ -6,7 +6,6 @@ import { RootType} from "@/app/model/query";
 
 const fetchData = async():Promise<RootType> =>{
     const response = await api.get("/Stage");
-    console.log(response);
     return response.data.data
     
 }

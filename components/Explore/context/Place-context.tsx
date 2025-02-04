@@ -1,6 +1,6 @@
 import React, { createContext, useState, ReactNode } from "react";
 
-// Define the type for the context value
+
 interface PlaceContextType {
   viewpoint: google.maps.places.PlaceGeometry["viewport"] | null;
   setViewpoint: (
@@ -8,13 +8,13 @@ interface PlaceContextType {
   ) => void;
 }
 
-// Create the context with a default value
+
 export const PlaceContext = createContext<PlaceContextType>({
   viewpoint: null,
   setViewpoint: () => {},
 });
 
-// Create a provider component
+
 export const PlaceProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {

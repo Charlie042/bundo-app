@@ -55,7 +55,6 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
     placeAutocomplete.addListener("place_changed", () => {
       const place = placeAutocomplete.getPlace();
       setSelectedPlace(place);
-      console.log(place.geometry);
       setValue("Address", place.formatted_address || "");
     });
   }, [placeAutocomplete, setValue]);
