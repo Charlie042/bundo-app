@@ -13,7 +13,7 @@ const MapHandler = ({ place }: Props) => {
   useEffect(() => {
     if (!map) return;
 
-    // Prioritize place.geometry.viewport, fall back to context viewpoint
+    
     const viewport = place?.geometry?.viewport || viewpoint;
 
     if (viewport) {

@@ -1,14 +1,21 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental:{
-    turbo:{}
+  experimental: {
+    turbo: {},
   },
   webpack(config) {
+    // Existing SVG configuration
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
     });
+
+    // Add Firebase fallback configuration
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+    };
 
     return config;
   },
@@ -24,7 +31,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  /* config options here */
+  // Add this to prevent issues with Firebase during static export
+  reactStrictMode: true,
 };
 
 export default nextConfig;

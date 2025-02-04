@@ -1,33 +1,36 @@
-// try {
-//   importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js");
-//   importScripts(
-//     "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js"
-//   );
+// public/firebase-messaging-sw.js
+self.addEventListener("install", function (event) {
+  self.skipWaiting();
+});
 
-//   const firebaseConfig = {
-//     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-//     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-//     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-//     storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-//     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-//     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-//     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-//   };
+importScripts(
+  "https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"
+);
+importScripts(
+  "https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"
+);
 
-//   firebase.initializeApp(firebaseConfig);
+firebase.initializeApp({
+  apiKey: "your-api-key",
+  authDomain: "your-auth-domain",
+  projectId: "your-project-id",
+  storageBucket: "your-storage-bucket",
+  messagingSenderId: "your-messaging-sender-id",
+  appId: "your-app-id",
+  measurementId: "your-measurement-id",
+});
 
-//   const messaging = firebase.messaging();
+const messaging = firebase.messaging();
 
-//   messaging.onBackgroundMessage((payload) => {
-//     console.log("Received background message:", payload);
+messaging.onBackgroundMessage(function (payload) {
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+    icon: "/icon.png",
+  };
 
-//     const notificationTitle = payload.notification?.title || "New Message";
-//     const notificationOptions = {
-//       body: payload.notification?.body || "You have a new message", 
-//     };
-
-//     self.registration.showNotification(notificationTitle, notificationOptions);
-//   });
-// } catch (error) {
-//   console.error("Error in firebase-messaging-sw.js:", error);
-// }
+  return self.registration.showNotification(
+    notificationTitle,
+    notificationOptions
+  );
+});

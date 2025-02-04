@@ -1,116 +1,160 @@
-// import React, { useState, useEffect } from "react";
-// import { Switch } from "@/components/ui/switch";
-// import { Bell, BellOff } from "lucide-react";
-// import { getToken, deleteToken } from "firebase/messaging";
-// import { messaging } from "@/utils/firebase/firebase";
-// import { toast } from "sonner";
+"use client";
 
-// const NotificationToggle = () => {
-//   const [isSubscribed, setIsSubscribed] = useState(false);
-//   const [loading, setLoading] = useState(true);
+import React, { useState, useEffect } from "react";
+import { Switch } from "@/components/ui/switch";
+import { Bell, BellOff } from "lucide-react";
+import {
+  getToken,
+  deleteToken,
+  onMessage,
+  Messaging,
+} from "firebase/messaging";
+import { getMessagingInstance } from "@/utils/firebase/firebase";
+import { toast } from "sonner";
 
-//   useEffect(() => {
-//     checkSubscriptionStatus();
-//   }, []);
+const NotificationToggle = () => {
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState<string | null>(null);
+  const [messaging, setMessaging] = useState<Messaging | null>(null);
 
-//   const checkSubscriptionStatus = async () => {
-//     try {
-//       if (!("Notification" in window)) {
-//         toast.error("Notifications not supported", {
-//           description: "This browser does not support notifications",
-//         });
-//         setLoading(false);
-//         return;
-//       }
+  useEffect(() => {
+    const initMessaging = async () => {
+      const messagingInstance = getMessagingInstance();
+      if (messagingInstance) {
+        setMessaging(messagingInstance);
+        await initializeNotifications(messagingInstance);
+      }
+      setLoading(false);
+    };
 
-//       const permission = Notification.permission;
+    if (typeof window !== "undefined") {
+      initMessaging();
+    }
+  }, []);
 
-//       if (permission === "granted") {
-//         const currentToken = await getToken(messaging, {
-//           vapidKey: process.env.NEXT_PUBLIC_FIREBASE_TOKEN_KEY,
-//         });
+  const initializeNotifications = async (messagingInstance: Messaging) => {
+    try {
+      if ("serviceWorker" in navigator) {
+        await navigator.serviceWorker.register("/firebase-messaging-sw.js");
+      }
 
-//         setIsSubscribed(!!currentToken);
-//       } else {
-//         setIsSubscribed(false);
-//       }
-//     } catch (error) {
-//       toast.error("Error checking notifications", {
-//         description: "Failed to check notification status",
-//       });
-//       console.error("Error checking subscription status:", error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
+      if (Notification.permission === "granted") {
+        const currentToken = await getToken(messagingInstance, {
+          vapidKey: process.env.NEXT_PUBLIC_FIREBASE_TOKEN_KEY,
+        });
 
-//   const handleToggle = async () => {
-//     try {
-//       setLoading(true);
+        if (currentToken) {
+          setToken(currentToken);
+          setIsSubscribed(true);
+        }
+      }
+    } catch (error) {
+      console.error("Error initializing notifications:", error);
+    }
+  };
 
-//       if (!isSubscribed) {
-//         const permission = await Notification.requestPermission();
+  const handleTokenCleanup = async () => {
+    try {
+      if (token && messaging) {
+        const success = await deleteToken(messaging);
+        if (success) {
+          setToken(null);
+          setIsSubscribed(false);
+        }
+      }
+    } catch (error) {
+      console.error("Error cleaning up token:", error);
+    }
+  };
 
-//         if (permission === "granted") {
-//           const token = await getToken(messaging, {
-//             vapidKey: process.env.NEXT_PUBLIC_FIREBASE_TOKEN_KEY,
-//           });
+  const handleToggle = async () => {
+    if (!messaging) return;
 
-//           if (token) {
-//             toast.success("Notifications Enabled", {
-//               description: "You will now receive notifications",
-//             });
-//             setIsSubscribed(true);
-//           } else {
-//             toast.error("Token Generation Failed", {
-//               description: "Could not generate notification token",
-//             });
-//           }
-//         } else {
-//           toast.error("Permission Denied", {
-//             description: "Please enable notifications in your browser settings",
-//           });
-//         }
-//       } else {
-//         await deleteToken(messaging);
+    try {
+      setLoading(true);
 
-//         toast.success("Notifications Disabled", {
-//           description: "You will no longer receive notifications",
-//         });
-//         setIsSubscribed(false);
-//       }
-//     } catch (error) {
-//       toast.error("Notification Toggle Failed", {
-//         description: "An error occurred while changing notification settings",
-//       });
-//       console.error("Error toggling notifications:", error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
+      if (!isSubscribed) {
+        const permission = await Notification.requestPermission();
 
-//   return (
-//     <div className="flex items-center space-x-4">
-//       {isSubscribed ? (
-//         <Bell className="h-5 w-5 text-primary" />
-//       ) : (
-//         <BellOff className="h-5 w-5 text-gray-400" />
-//       )}
-//       <Switch
-//         checked={isSubscribed}
-//         onCheckedChange={handleToggle}
-//         disabled={loading}
-//         className="data-[state=checked]:bg-primary"
-//       />
-//       <span className="text-sm">
-//         {loading
-//           ? "Loading ..."
-//           : isSubscribed
-//           ? "Notifications enabled"
-//           : "Enable notifications"}
-//       </span>
-//     </div>
-//   );
-// };
+        if (permission === "granted") {
+          const newToken = await getToken(messaging, {
+            vapidKey: process.env.NEXT_PUBLIC_FIREBASE_TOKEN_KEY,
+          });
 
-// export default NotificationToggle;
+          if (newToken) {
+            setToken(newToken);
+            console.log(newToken)
+            toast.success("Notifications Enabled");
+            setIsSubscribed(true);
+          } else {
+            toast.error("Failed to enable notifications");
+          }
+        } else {
+          toast.error("Permission denied");
+        }
+      } else {
+        await handleTokenCleanup();
+        toast.success("Notifications disabled");
+      }
+    } catch (error) {
+      console.error("Error toggling notifications:", error);
+      toast.error("Failed to toggle notifications");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!messaging) return;
+
+    const unsubscribe = onMessage(messaging, (payload) => {
+      const { title, body } = payload.notification || {};
+      if (title) {
+        toast.info(title, { description: body });
+      }
+    });
+
+    return () => {
+      unsubscribe();
+      if (token) {
+        handleTokenCleanup();
+      }
+    };
+  }, [messaging, token]);
+
+  if (typeof window === "undefined") {
+    return (
+      <div className="flex items-center space-x-4">
+        <BellOff className="h-5 w-5 text-gray-400" />
+        <Switch disabled className="data-[state=checked]:bg-primary" />
+        <span className="text-sm">Enable notifications</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center space-x-4">
+      {isSubscribed ? (
+        <Bell className="h-5 w-5 text-primary" />
+      ) : (
+        <BellOff className="h-5 w-5 text-gray-400" />
+      )}
+      <Switch
+        checked={isSubscribed}
+        onCheckedChange={handleToggle}
+        disabled={loading || !messaging}
+        className="data-[state=checked]:bg-primary"
+      />
+      <span className="text-sm">
+        {loading
+          ? "Loading..."
+          : isSubscribed
+          ? "Notifications enabled"
+          : "Enable notifications"}
+      </span>
+    </div>
+  );
+};
+
+export default NotificationToggle;

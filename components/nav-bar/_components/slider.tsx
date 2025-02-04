@@ -3,7 +3,7 @@ import { CircleX, House } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { SliderProps } from "@/app/model/Navbar";
-// import NotificationToggle from "./push-notification";
+import NotificationToggle from "./push-notification";
 
 export const Slider = ({ isOpen, setIsOpen }: SliderProps) => {
   const navItems = [
@@ -67,7 +67,7 @@ export const Slider = ({ isOpen, setIsOpen }: SliderProps) => {
               3. Uncomment and configure Firebase in the `public` and `utils` folders.  
 */}
 
-          {/* <NotificationToggle /> */}
+          <NotificationToggle />
         </div>
       </div>
     </motion.div>
