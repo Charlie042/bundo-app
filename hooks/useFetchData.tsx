@@ -40,9 +40,10 @@ export const postData = async (data: ModalApiProps) => {
         "Content-Type": undefined
       }
     });
-    
+
     return response.data;
   } catch (error) {
+    console.error("API Request Failed:", error);
     throw error;
   }
 };
@@ -57,3 +58,5 @@ export const usePostData = () => {
     },
   });
 };
+
+

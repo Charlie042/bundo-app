@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { CircleX } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -7,26 +7,30 @@ import { modalSchema } from "./modal-schema";
 import { useFormWithSchema } from "@/hooks/useFormWithSchema";
 import { Controller } from "react-hook-form";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
-import { usePostData } from "@/hooks/useFetchData";
+import { useFetchGetData, usePostData } from "@/hooks/useFetchData";
 import { SliderProps } from "@/app/model/Navbar";
-
-
+import { PlaceContext } from "../context/Place-context";
+import { toast } from "sonner";
 
 
 const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
-  const { handleSubmit, control, setValue, reset ,formState:{errors}} = useFormWithSchema(
-    modalSchema,
-    {
-      defaultValues: {
-        Address: "",
-        BusinessName: "",
-        image: "",
-      },
-    }
-  );
-  const {mutate,isError,isPending} = usePostData()
+  const { setViewpoint } = useContext(PlaceContext);
+  const {refetch} = useFetchGetData();
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useFormWithSchema(modalSchema, {
+    defaultValues: {
+      Address: "",
+      BusinessName: "",
+      image: "",
+    },
+  });
+  const { mutate, isError, isPending } = usePostData();
 
- 
   const places = useMapsLibrary("places");
   const inputRef = useRef<HTMLInputElement>(null);
   const [placeAutocomplete, setPlaceAutocomplete] =
@@ -45,41 +49,72 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
     setPlaceAutocomplete(autocomplete);
   }, [places]);
 
- 
   useEffect(() => {
     if (!placeAutocomplete) return;
 
     placeAutocomplete.addListener("place_changed", () => {
       const place = placeAutocomplete.getPlace();
-      setSelectedPlace(place)
-      console.log(place.geometry)
+      setSelectedPlace(place);
+      console.log(place.geometry);
       setValue("Address", place.formatted_address || "");
     });
   }, [placeAutocomplete, setValue]);
 
+  
+  const postData = async (data: ModalApiProps) => {
+    try {
+      const response = await fetch(
+        "https://dny4au0opl.execute-api.us-west-2.amazonaws.com/Stage",
+        {
+          method: "POST",
+          headers: {
+            
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("API Request Failed:", error);
+      throw error;
+    }
+  };
+
+  
   const onSubmit = async (Modaldata: ModalDataProps) => {
     const formData: ModalApiProps = {
-      id: "c854b059-23a0-4161-88e1-ea66017eb32e",
+      id: "c854b059-23a0-4161-88e1-ea66017eb23r",
       lat: selectedPlace?.geometry?.location?.lat() ?? 0,
       long: selectedPlace?.geometry?.location?.lng() ?? 0,
       address: Modaldata.Address,
       businessName: Modaldata.BusinessName,
       businessProfilePicture: Modaldata.image,
     };
-     mutate(formData,{
-      onSuccess:()=> {
-        handleClose()
-        console.log("so it worked!")
-      },
-      onError:()=>{
-        console.error("Failed to save")
-      }
-     })
+
+    try {
+      const result = await postData(formData);
+      refetch()
+      setViewpoint(selectedPlace?.geometry?.viewport || null); 
+      toast.success("Successful!",{
+         description: "Your bussiness was added Successfully! 😁",
+      })
+      handleClose(); 
+    } catch (error) {
+      console.error("Failed to save:", error);
+      toast.error("Failed!",{
+        description: "Your business could not be added. Please try again."
+      })
+    }
   };
 
   const handleClose = () => {
     setIsOpen(false);
-    reset(); 
+    reset();
   };
 
   const [xValue, setXValue] = useState("-50%");
@@ -148,7 +183,9 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
                     placeholder="Enter Address"
                     className="w-full p-3 border rounded-md pl-8 outline-primary bg-[#DEF2FB33]"
                   />
-                   <p className="text-red-500 text-sm font-thin mt-2">{errors.Address?.message}</p>
+                  <p className="text-red-500 text-sm font-thin mt-2">
+                    {errors.Address?.message}
+                  </p>
                   <Image
                     src="/svgs/search.svg"
                     alt="Search Icon"
@@ -176,7 +213,9 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
                     placeholder="Business Name"
                     className="w-full p-3 border rounded-md outline-primary bg-[#DEF2FB33]"
                   />
-                  <p className="text-red-500 text-sm font-thin mt-2">{errors.BusinessName?.message}</p>
+                  <p className="text-red-500 text-sm font-thin mt-2">
+                    {errors.BusinessName?.message}
+                  </p>
                 </div>
               )}
             />

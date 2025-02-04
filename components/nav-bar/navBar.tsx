@@ -3,18 +3,34 @@
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import Avatar from "../ui/avatar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Slider } from "./_components/slider";
 import { BundoLogo } from "@/public/images";
 import Link from "next/link";
 import { Shoppingbag } from "@/public/svgs";
 
 export const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const[isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll event
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
-      <nav className="sticky z-30 bg-white top-0">
+      <nav className={`sticky z-30 bg-white top-0 w-full ${isScrolled ?"shadow-lg" : "shadow-none"} `}>
         <div className="nav-container">
           {" "}
           <Link href="/">

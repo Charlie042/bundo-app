@@ -87,7 +87,7 @@ body {
   
   /* For NavBar */
   .nav-container {
-    @apply flex justify-between items-center py-5 ;
+    @apply flex justify-between items-center py-5 mx-10 ;
   }
 
   .nav-links {
@@ -95,7 +95,7 @@ body {
   }
 
   .marketplace-container {
-    @apply flex justify-center items-center gap-3 max-sm:hidden;
+    @apply flex justify-center items-center gap-3 max-md:hidden;
   }
 
   .cart-container {
@@ -107,7 +107,7 @@ body {
   }
 
   .user-container {
-    @apply flex items-center gap-2 max-sm:hidden;
+    @apply flex items-center gap-2 max-md:hidden;
   }
 
   .user-avatar {

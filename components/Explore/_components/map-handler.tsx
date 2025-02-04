@@ -1,5 +1,6 @@
 import { useMap } from "@vis.gl/react-google-maps";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { PlaceContext } from "../context/Place-context";
 
 interface Props {
   place: google.maps.places.PlaceResult | null;
@@ -7,14 +8,18 @@ interface Props {
 
 const MapHandler = ({ place }: Props) => {
   const map = useMap();
+  const { viewpoint } = useContext(PlaceContext);
 
   useEffect(() => {
-    if (!map || !place) return;
+    if (!map) return;
 
-    if (place.geometry?.viewport) {
-      map.fitBounds(place.geometry?.viewport);
+    // Prioritize place.geometry.viewport, fall back to context viewpoint
+    const viewport = place?.geometry?.viewport || viewpoint;
+
+    if (viewport) {
+      map.fitBounds(viewport);
     }
-  }, [map, place]);
+  }, [map, place, viewpoint]);
 
   return null;
 };

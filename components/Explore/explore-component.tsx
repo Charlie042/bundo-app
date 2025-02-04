@@ -2,16 +2,18 @@
 
 import { Plus } from "lucide-react";
 import Modal from "./_components/Modal-explore"
-import { useState } from "react";
-export const ExploreComp = () =>{
+import { useState, FC, SetStateAction, Dispatch } from "react";
+
+
+export const ExploreComp = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleModal = ()=>{
+    const handleModal = () => {
         setIsOpen(prev => !prev)
         console.log("clicked")
     }
     return (
-      <div className="flex max-md:flex-col justify-between mt-10 items-start gap-2 ">
+      <div className="flex max-md:flex-col justify-between mt-10 items-start gap-2 mx-10 lg:mx-5 xl:mx-3">
         <h2 className="text-2xl">Explore Buisness</h2>
         <button
           onClick={handleModal}
@@ -22,7 +24,7 @@ export const ExploreComp = () =>{
         {isOpen && (
           <div className="overlay" onClick={() => setIsOpen(false)}></div>
         )}
-       <Modal isOpen={isOpen}setIsOpen={setIsOpen} />
+        <Modal isOpen={isOpen} setIsOpen={setIsOpen}  />
       </div>
     );
 }

@@ -51,14 +51,16 @@ export const VendorsLocation = () => {
               className="py-2 rounded-md bg-white absolute z-20 right-20 top-5 hover:bg-gray-100 "
               onClick={handleRotate}
             >
-             <LuRefreshCw className={`w-10 h-5 ${isRotate ? "animate-spin" : ""}`}/>
+              <LuRefreshCw
+                className={`w-10 h-5 ${isRotate ? "animate-spin" : ""}`}
+              />
             </button>
           </div>
 
           <Map
             defaultCenter={{ lat: 6.5364553, lng: 3.317691999999999 }}
             defaultZoom={12}
-            mapId="TRYING_ID"
+            mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_ID}
             disableDefaultUI
           >
             <div className="absolute top-5 left-5">
