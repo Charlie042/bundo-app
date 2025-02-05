@@ -42,7 +42,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
     if (!places || !inputRef.current) return;
 
     const options = {
-      fields: ["geometry", "name", "formatted_address"],
+      fields: ["geometry", "name", "formatted_address", "place_id"],
     };
 
     const autocomplete = new places.Autocomplete(inputRef.current, options);
@@ -87,7 +87,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
   
   const onSubmit = async (Modaldata: ModalDataProps) => {
     const formData: ModalApiProps = {
-      id: "c854b059-23a0-4161-88e1-ea66017eb23r",
+      id: selectedPlace?.place_id || "",
       lat: selectedPlace?.geometry?.location?.lat() ?? 0,
       long: selectedPlace?.geometry?.location?.lng() ?? 0,
       address: Modaldata.Address,

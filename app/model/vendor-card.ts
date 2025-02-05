@@ -1,7 +1,4 @@
-interface Ratings {
-  average: number;
-  count: number;
-}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface VendorCardProps {
   logo: string;
@@ -10,7 +7,7 @@ interface VendorCardProps {
   description: string;
   location: string;
   categories: string[];
-  ratings: Ratings;
+  ratings: number;
   onFavorite: () => void;
   onViewPage: () => void;
 }

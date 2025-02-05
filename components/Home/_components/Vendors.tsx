@@ -18,6 +18,7 @@ export const Vendors = () => {
      );
     if(isError)return <p>Error: {error.message}</p>
 
+    console.log(data)
 
     return (
       <>
@@ -32,10 +33,7 @@ export const Vendors = () => {
                   description={item.description}
                   location={formatAddress(item.address) || "No address"}
                   categories={item.categories}
-                  ratings={{
-                    average: item.average_rating || 0,
-                    count: item.total_reviews || 0,
-                  }}
+                  ratings={item.total_ratings}
                   onFavorite={() => console.log("Favorite clicked")}
                   onViewPage={() => console.log("View page clicked")}
                 />
