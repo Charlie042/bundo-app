@@ -20,6 +20,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
     handleSubmit,
     control,
     setValue,
+    watch,
     reset,
     formState: { errors },
   } = useFormWithSchema(modalSchema, {
@@ -30,6 +31,8 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
     },
   });
   const { mutate, isError, isPending } = usePostData();
+  const isImage = watch("image")
+
 
   const places = useMapsLibrary("places");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -221,7 +224,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
           </div>
 
           <button
-            type="button"
+            type="submit"
             className="w-full bg-primary font-light text-white rounded-md p-3 mb-4 flex items-center justify-center hover:bg-green-600 transition"
           >
             <span className="mr-2">+</span>
@@ -250,7 +253,10 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
         <div className="p-6">
           <button
             type="submit"
-            className="w-full bg-primary text-white rounded-md p-3 hover:bg-green-600 transition"
+            disabled={!isImage}
+            className={`${
+              !isImage ? "bg-slate-400 cursor-not-allowed" : "bg-primary hover:bg-green-600"
+            } w-full  text-white rounded-md p-3  transition`}
           >
             Save Business
           </button>
