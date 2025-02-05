@@ -22,6 +22,12 @@ export const Vendors = () => {
 
     return (
       <>
+        <h3 className=" flex gap-10 items-center text-semibold mx-10">
+          Explore a wide range of Vendors{" "}
+          <span className="text-sm font-extralight cursor-pointer hover:text-gray-500 underline">
+            see all
+          </span>
+        </h3>
         <div className="text-black grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10  m-2 lg:m-10">
           {Array.isArray(data) &&
             data.map((item) => (
