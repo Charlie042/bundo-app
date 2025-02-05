@@ -38,7 +38,7 @@ export const NavBar = () => {
           </Link>
           <div className="nav-links">
             <div className="marketplace-container">
-              <span className="text-primary font-medium">Marketplace</span>
+              <Link href="/" className="text-primary font-medium hover:text-green-500">Marketplace</Link>
               <div className="cart-container">
                 <Image
                   src="/svgs/shoppingbag.svg"
