@@ -22,13 +22,13 @@ export const Vendors = () => {
 
     return (
       <>
-        <h3 className=" flex gap-10 items-center text-semibold mx-10">
+        <h3 className=" flex gap-10 items-center text-sm ml-2 sm:text-xs text-semibold sm:ml-2 md:ml-2 lg:ml-10">
           Explore a wide range of Vendors{" "}
           <span className="text-sm font-extralight cursor-pointer hover:text-gray-500 underline">
             see all
           </span>
         </h3>
-        <div className="text-black grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10  m-2 lg:m-10">
+        <div className="text-black items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10  m-2 lg:m-10">
           {Array.isArray(data) &&
             data.map((item) => (
               <div key={item._id} className="bg-card ">

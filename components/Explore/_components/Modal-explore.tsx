@@ -16,6 +16,7 @@ import { toast } from "sonner";
 const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
   const { setViewpoint } = useContext(PlaceContext);
   const {refetch} = useFetchGetData();
+  const [isPending, setIsPending] = useState(false)
   const {
     handleSubmit,
     control,
@@ -30,7 +31,6 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
       image: "",
     },
   });
-  const { mutate, isError, isPending } = usePostData();
   const isImage = watch("image")
 
 
@@ -64,6 +64,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
 
   
   const postData = async (data: ModalApiProps) => {
+    setIsPending(true);
     try {
       const response = await fetch(
         "https://dny4au0opl.execute-api.us-west-2.amazonaws.com/Stage",
@@ -84,6 +85,8 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
     } catch (error) {
       console.error("API Request Failed:", error);
       throw error;
+    }finally{
+      setIsPending(false)
     }
   };
 
@@ -258,7 +261,7 @@ const Modal = ({ isOpen, setIsOpen }: SliderProps) => {
               !isImage ? "bg-slate-400 cursor-not-allowed" : "bg-primary hover:bg-green-600"
             } w-full  text-white rounded-md p-3  transition`}
           >
-            Save Business
+            {isPending ? "Loading ..." : " Save Business" }
           </button>
         </div>
       </form>
